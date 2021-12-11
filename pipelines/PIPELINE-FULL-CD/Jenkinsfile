@@ -1,0 +1,42 @@
+pipeline {
+    agent any
+    stages {
+        
+        stage('Staging'){
+            steps{
+                echo 'Starting staging job'
+                build job: 'PIPELINE-FULL-STAGING', parameters: [
+                      string(name:'ENVIRONMENT', value: "staging")]
+            }
+        }
+        stage('Merge'){
+            steps{
+                sh script: """
+                    set -x
+                    git branch -a
+                    git checkout -b develop origin/develop
+                    git checkout -b master origin/master
+                    git merge develop
+                """, label: "Merging code to master"
+                sshagent(['github']) {
+                    sh "git push origin master"
+                }
+
+            }
+        }
+        stage('Production'){
+            steps{
+                
+                echo 'Starting production job'
+                build job: 'PIPELINE-FULL-PRODUCTION', parameters: [
+                      string(name:'ENVIRONMENT', value: "production")]
+            }
+        }
+    }
+    post { 
+        always { 
+            echo 'Clean env: delete dir'
+            cleanWs()
+        }
+    }
+}

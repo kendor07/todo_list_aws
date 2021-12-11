@@ -1,0 +1,41 @@
+pipeline {
+    agent any
+    stages {
+        
+        stage('SetUp'){
+            steps{
+                echo 'Setup Virtualenv for testing'
+                sh "bash pipelines/PIPELINE-FULL-PRODUCTION/setup.sh"
+            }
+        }
+       stage('Build') {
+            steps{
+                echo 'Package sam application:'
+                sh "bash pipelines/common-steps/build.sh"
+            }
+        }
+        stage('Deploy'){
+            steps{
+                echo 'Initiating Deployment'
+                sh "bash pipelines/common-steps/deploy.sh"
+            }
+        }
+        stage('Integration Test after deploy'){
+            steps{
+                script {
+                    def BASE_URL = sh( script: "aws cloudformation describe-stacks --stack-name todo-list-aws-production --query 'Stacks[0].Outputs[?OutputKey==`BaseUrlApi`].OutputValue' --region us-east-1 --output text",
+                        returnStdout: true)
+                    echo "$BASE_URL"
+                    echo 'Initiating Integration Tests'
+                    sh "bash pipelines/common-steps/integration.sh $BASE_URL"
+                }
+            }
+        }
+    }
+    post { 
+        always { 
+            echo 'Clean env: delete dir'
+            cleanWs()
+        }
+    }
+}
