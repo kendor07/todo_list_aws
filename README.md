@@ -59,12 +59,16 @@ A continuación se describen los comandos/acciones a realizar para poder probar 
 ```bash
 ## Crear red de docker
 docker network create sam
+
 ## Levantar el contenedor de dynamodb en la red de sam con el nombre de dynamodb
 docker run -p 8000:8000 --network sam --name dynamodb -d amazon/dynamodb-local
+
 ## Crear la tabla en local, para poder trabajar localmemte
 aws dynamodb create-table --table-name local-TodosDynamoDbTable --attribute-definitions AttributeName=id,AttributeType=S --key-schema AttributeName=id,KeyType=HASH --provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1 --endpoint-url http://localhost:8000
+
 ## Empaquetar sam
 sam build # también se puede usar sam build --use-container si se dan problemas con las librerías de python
+
 ## Levantar la api en local, en el puerto 8080, dentro de la red de docker sam
 sam local start-api --port 8080 --env-vars localEnvironment.json --docker-network sam
 ```
@@ -106,6 +110,23 @@ export PYTHONPATH="${PYTHONPATH}:<directorio de la aplicación>"
 export DYNAMODB_TABLE=todoUnitTestsTable
 python test/unit/TestToDo.py
 ```
+Otra alternativa es ejecutar los test desde la raíz del proyecto invocando a los scripts alojados dentro de la carpeta pipelines:
+```bash
+# Ejecución Pruebas
+
+## Configuración del entorno virtual
+pipelines/PIPELINE-FULL-STAGING/setup.sh
+
+## Pruebas unitarias
+pipelines/PIPELINE-FULL-STAGING/unit_test.sh
+
+## pruebas estáticas (seguridad, calidad, complejidad )
+pipelines/PIPELINE-FULL-STAGING/static_test.sh
+
+# Pruebas de integración
+pipelines/common-steps/integration.sh
+```
+
 ## Pipelines
 
 Para la implementación del CI/CD de la aplicación se utilizan los siguientes Pipelines:
