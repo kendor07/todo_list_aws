@@ -26,6 +26,17 @@ sam build
 ```
 
 ### Desplegar la aplicación con la configuración de **samconfig.toml**:
+Revisar el fichero samconfig.toml
+```bash
+vim samconfig.toml
+```
+Buscar en la configuración los buckets donde se van a almacenar los artefactos y modificar el fichero para que apunte al bucket del alumno, para ello hay que modificar las XXXXXX por otro nombre identificativo. Previamente se deberá crear los buckets a través de la consola de AWS!!!
+```bash
+s3_bucket = "aws-sam-cli-managed-staging-samclisourcebucket-XXXXXX" #Incluir bucket propio. Previamente se deberá crear los buckets a través de la consola de AWS!!!
+```
+```bash
+s3_bucket = "aws-sam-cli-managed-production-samclisourcebucket-XXXXXX" #Incluir bucket propio. Previamente se deberá crear los buckets a través de la consola de AWS!!!
+```
 Ejecutar el siguiente comando para el entorno de **staging**
 ```bash
 sam deploy template.yaml --config-env staging
