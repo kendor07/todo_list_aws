@@ -24,28 +24,6 @@ Para utilizar SAM CLI se necesitan las siguientes herramientas:
 ```bash
 sam build
 ```
-
-### Desplegar la aplicación con la configuración de **samconfig.toml**:
-Revisar el fichero samconfig.toml
-```bash
-vim samconfig.toml
-```
-Buscar en la configuración los buckets donde se van a almacenar los artefactos y modificar el fichero para que apunte al bucket del alumno, para ello hay que modificar las XXXXXX por otro nombre identificativo. Previamente se deberá crear los buckets a través de la consola de AWS!!!
-```bash
-s3_bucket = "aws-sam-cli-managed-staging-samclisourcebucket-XXXXXX" #Incluir bucket propio. Previamente se deberá crear los buckets a través de la consola de AWS!!!
-```
-```bash
-s3_bucket = "aws-sam-cli-managed-production-samclisourcebucket-XXXXXX" #Incluir bucket propio. Previamente se deberá crear los buckets a través de la consola de AWS!!!
-```
-Ejecutar el siguiente comando para el entorno de **staging**
-```bash
-sam deploy template.yaml --config-env staging
-```
-Ejecutar el siguiente comando para el entorno de **producción**
-```bash
-sam deploy template.yaml --config-env prod
-```
-
 ### Desplegar la aplicación por primera vez:
 
 Sin utilizar la configuración del archivo samconfig.toml. Se generará un archivo de configuración reemplazando al actual si ya existe.
@@ -63,6 +41,31 @@ El despliegue de la aplicación empaqueta, publicará en un bucket s3 el artefac
 * **Save arguments to samconfig.toml**: Si se selecciona "yes" las respuestas se almacenarán en el fichero de configuración samconfig.toml, de esta forma el el futuro se podrá ejecutar con `sam deploy` y se leerá la configuración del fichero.
 
 En el output del despliegue se devolverá el API Gateway Endpoint URL
+
+### Desplegar la aplicación con la configuración de **samconfig.toml**:
+Revisar el fichero samconfig.toml
+```bash
+vim samconfig.toml
+```
+Buscar en la configuración los buckets donde se van a almacenar los artefactos y modificar el fichero para que apunte al bucket del alumno, para ello hay que modificar las XXXXXX por otro nombre identificativo. Previamente se deberá crear los buckets a través de la consola de AWS!!!
+```bash
+s3_bucket = "aws-sam-cli-managed-staging-samclisourcebucket-XXXXXX" #Incluir bucket propio. Previamente se deberá crear los buckets a través de la consola de AWS!!!
+```
+```bash
+s3_bucket = "aws-sam-cli-managed-production-samclisourcebucket-XXXXXX" #Incluir bucket propio. Previamente se deberá crear los buckets a través de la consola de AWS!!!
+```
+Ejecutar el siguiente comando para el entorno de **default**. Nota: usar este para pruebas manuales y dejar el resto para los despliegues con Jenkins.
+```bash
+sam deploy template.yaml --config-env default
+```
+Ejecutar el siguiente comando para el entorno de **staging**
+```bash
+sam deploy template.yaml --config-env staging
+```
+Ejecutar el siguiente comando para el entorno de **producción**
+```bash
+sam deploy template.yaml --config-env prod
+```
 
 ## Despliegue manual de la aplicación SAM en local
 
