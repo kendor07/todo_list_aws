@@ -70,7 +70,7 @@ aws dynamodb create-table --table-name local-TodosDynamoDbTable --attribute-defi
 sam build # también se puede usar sam build --use-container si se dan problemas con las librerías de python
 
 ## Levantar la api en local, en el puerto 8080, dentro de la red de docker sam
-sam local start-api --port 8080 --env-vars localEnvironment.json --docker-network sam
+sam local start-api --port 8081 --env-vars localEnvironment.json --docker-network sam
 ```
 
 ## Consultar logs de las funciones lambda
