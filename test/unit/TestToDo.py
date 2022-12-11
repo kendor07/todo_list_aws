@@ -1,13 +1,13 @@
-# from pprint import pprint
 import warnings
 import unittest
 import boto3
-from moto import mock_dynamodb2
+from moto import mock_dynamodb
+from unittest.mock import Mock
 import sys
 import os
 import json
 
-@mock_dynamodb2
+@mock_dynamodb
 class TestDatabaseFunctions(unittest.TestCase):
     def setUp(self):
         print ('---------------------')
@@ -199,8 +199,6 @@ class TestDatabaseFunctions(unittest.TestCase):
         # Testing file functions
         self.assertRaises(TypeError, delete_item("", self.dynamodb))
         print ('End: test_delete_todo_error')
-
-
 
 if __name__ == '__main__':
     unittest.main()
