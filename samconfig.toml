@@ -8,6 +8,8 @@ region = "us-east-1"
 capabilities = "CAPABILITY_IAM"
 parameter_overrides = "Stage=\"default\""
 image_repositories = []
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-1k8gkn63x1htj"
+confirm_changeset = true
 
 [staging]
 [staging.deploy]
