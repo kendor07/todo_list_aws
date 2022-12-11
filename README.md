@@ -47,13 +47,6 @@ Revisar el fichero samconfig.toml
 ```bash
 vim samconfig.toml
 ```
-Buscar en la configuración los buckets donde se van a almacenar los artefactos y modificar el fichero para que apunte al bucket del alumno, para ello hay que modificar las XXXXXX por otro nombre identificativo. Previamente se deberá crear los buckets a través de la consola de AWS!!!
-```bash
-s3_bucket = "aws-sam-cli-managed-staging-samclisourcebucket-XXXXXX" #Incluir bucket propio. Previamente se deberá crear los buckets a través de la consola de AWS!!!
-```
-```bash
-s3_bucket = "aws-sam-cli-managed-production-samclisourcebucket-XXXXXX" #Incluir bucket propio. Previamente se deberá crear los buckets a través de la consola de AWS!!!
-```
 Ejecutar el siguiente comando para el entorno de **default**. Nota: usar este para pruebas manuales y dejar el resto para los despliegues con Jenkins.
 ```bash
 sam deploy template.yaml --config-env default
@@ -119,9 +112,9 @@ pipelines/PIPELINE-FULL-STAGING/static_test.sh
 
 ## Pruebas de integración ##
 # Si las pruebas de integración son contra sam local será necesario exportar la siguiente URL:
-export $BASE_URL="http://localhost:8081"
+export BASE_URL="http://localhost:8081"
 # Si las pruebas de integración son contra el api rest desplegado en AWS, será necesario exportar la url del API:
-export $BASE_URL="https://<<id-api-rest>>.execute-api.us-east-1.amazonaws.com/Prod
+export BASE_URL="https://<<id-api-rest>>.execute-api.us-east-1.amazonaws.com/Prod
 pipelines/common-steps/integration.sh $BASE_URL
 ```
 
