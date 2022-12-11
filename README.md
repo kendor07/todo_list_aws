@@ -104,41 +104,25 @@ Se encuentran en la carpeta `test` que tiene la siguiente estructura:
 |--- unit (tests unitarios)
 |       -- TestToDo.py
 ```
-Para ejecutar los tests de **integración** es necesario ejecutar los siguientes comandos:
+Para ejecutar los tests **unitarios** y de **integración** es necesario ejecutar los siguientes comandos:
 ```bash
-python -m pip install pytest
-python -m pip install requests
-pytest -s test/integration/todoApiTest.py
-```
+# Ejecución Pruebas #
 
-Para ejecutar los tests **unitarios** es necesario ejecutar los siguientes comandos:
-```bash
-python3.7 -m venv pyenvunittests
-source pyenvunittests/bin/activate
-python3.7 -m pip install --upgrade pip
-python3.7 -m pip install boto3
-python3.7 -m pip install moto
-python3.7 -m pip install mock==4.0.2
-python3.7 -m pip install coverage==4.5.4
-export PYTHONPATH="${PYTHONPATH}:<directorio de la aplicación>"
-export DYNAMODB_TABLE=todoUnitTestsTable
-python test/unit/TestToDo.py
-```
-Otra alternativa es ejecutar los test desde la raíz del proyecto invocando a los scripts alojados dentro de la carpeta pipelines:
-```bash
-# Ejecución Pruebas
-
-## Configuración del entorno virtual
+## Configuración del entorno virtual ##
 pipelines/PIPELINE-FULL-STAGING/setup.sh
 
-## Pruebas unitarias
+## Pruebas unitarias ##
 pipelines/PIPELINE-FULL-STAGING/unit_test.sh
 
-## pruebas estáticas (seguridad, calidad, complejidad )
+## pruebas estáticas (seguridad, calidad, complejidad ) ##
 pipelines/PIPELINE-FULL-STAGING/static_test.sh
 
-# Pruebas de integración
-pipelines/common-steps/integration.sh
+## Pruebas de integración ##
+# Si las pruebas de integración son contra sam local será necesario exportar la siguiente URL:
+export $BASE_URL="http://localhost:8081"
+# Si las pruebas de integración son contra el api rest desplegado en AWS, será necesario exportar la url del API:
+export $BASE_URL="https://<<id-api-rest>>.execute-api.us-east-1.amazonaws.com/Prod
+pipelines/common-steps/integration.sh $BASE_URL
 ```
 
 ## Pipelines
