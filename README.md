@@ -6,8 +6,32 @@ Este proyecto contiene un ejemplo de solución **SAM + Jenkins**. Contiene una a
 
 A continuación se describe la estructura del proyecto:
 - **pipelines** - pipelines de Jenkins que permiten construir el CI/CD
+    - common-steps
+        - build.sh: entra en una virtualenv de python y ejecuta sam build command dentro.
+        - deploy.sh: utilizando sam deploy, el environment y el template.yaml
+        - integration.sh: lanza los tests con pytest
+    - PIPELINE-FULL-CD
+        - Jenkinsfile: contiene la definicion de las pipeline de Jenkins
+    - PIPELINE-FULL-PRODUCTION
+        - Jenkinsfile: contiene la definicion de las pipeline de Jenkins
+        - setup.sh: instala las librerias necesarias de python en el entorno virtual correspondiente
+    - PIPELINE-FULL-STAGING
+        - Jenkinsfile: contiene la definicion de las pipeline de Jenkins
+        - setup.sh: instala las librerias necesarias de python en el entorno virtual correspondiente
+        - static_test.sh: lanza las pruebas de integracion*
+        - unit_test.sh: lanza las pruebas unitarias bajo un entorno virtual de python incluyendo covertura
+
 - **src** - en este directorio se almacena el código fuente de las funciones lambda con las que se va a trabajar
+    - todoList.py: interactua con dynamodb, similar a un model?
+    - update.py controlador para actualizar un registro
+    - create.py controlador para crear un registro
+    - decimalencoder transforma de json a int o decimal
+    - delete.py controlador para borrar un registro
+    - get.py controlador para devolver un registro por id
+    - list.py controlador para devolver varios registros
 - **test** - Tests unitarios y de integración. 
+    - integration/todoApiTest.py test de integracion
+    - unit/TestToDo.py [FIRST IS CASE WHY?] test unitarios
 - **samconfig.toml** - Configuración de los stacks de Staging y Producción
 - **template.yaml** - Template que define los recursos AWS de la aplicación
 - **localEnvironment.json** - Permite el despliegue en local de la aplicación sobreescribiendo el endpoint de dynamodb para que apunte contra el docker de dynamo
