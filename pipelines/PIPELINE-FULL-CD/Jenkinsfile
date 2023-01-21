@@ -17,6 +17,8 @@ pipeline {
                     git checkout -b develop origin/develop
                     git checkout -b main origin/main
                     git merge develop
+                    pwd
+                    whoami
                 """, label: "Merging code to master"
                 sshagent(['aws-lab-ec2-jenkins']) {
                     sh "git push origin main"
