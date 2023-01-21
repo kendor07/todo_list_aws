@@ -1,11 +1,18 @@
 pipeline {
     agent any
     stages {
-        
+        stage('test_connection'){
+            steps{
+                
+                echo 'Starting production job'
+                build job: 'PIPELINE-FULL-PRODUCTION', parameters: [
+                      string(name:'ENVIRONMENT', value: "production")]
+            }
+        }
         stage('Staging'){
             steps{
                 echo 'Starting staging job'
-                build job: 'PIPELINE-FULL-STAGING', parameters: [
+                build job: 'PIPEclearLINE-FULL-STAGING', parameters: [
                       string(name:'ENVIRONMENT', value: "staging")]
             }
         }
@@ -15,7 +22,7 @@ pipeline {
                     set -x
                     git branch -a
                     git checkout -b develop origin/develop
-                    git checkout -b master origin/main
+                    git checkout -b main origin/main
                     git merge develop
                 """, label: "Merging code to main"
                 sshagent(['aws-lab-ec2']) {
