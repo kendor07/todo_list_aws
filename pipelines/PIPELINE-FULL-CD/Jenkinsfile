@@ -1,10 +1,11 @@
 pipeline {
     agent any
     stages {
+        
         stage('Staging'){
             steps{
                 echo 'Starting staging job'
-                build job: 'PIPEclearLINE-FULL-STAGING', parameters: [
+                build job: 'PIPELINE-FULL-STAGING', parameters: [
                       string(name:'ENVIRONMENT', value: "staging")]
             }
         }
@@ -17,7 +18,7 @@ pipeline {
                     git checkout -b main origin/main
                     git merge develop
                 """, label: "Merging code to main"
-                sshagent(['aws-lab-ec2']) {
+                sshagent(['aws-lab']) {
                     sh "git push origin master"
                 }
 
