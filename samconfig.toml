@@ -3,7 +3,8 @@ version = 0.1
 [default.deploy]
 [default.deploy.parameters]
 stack_name = "todo-list-aws"
-s3_prefix = "unir-bucket-001/todo-list-aws"
+s3_bucket = "unir-bucket-default"
+s3_prefix = "todo-list-aws"
 region = "us-east-1"
 capabilities = "CAPABILITY_IAM"
 parameter_overrides = "Stage=\"default\""
@@ -14,7 +15,8 @@ confirm_changeset = true
 [staging.deploy]
 [staging.deploy.parameters]
 stack_name = "todo-list-aws-staging"
-s3_prefix = "unir-bucket-001/todo-list-aws"
+s3_bucket = "unir-bucket-staging"
+s3_prefix = "todo-list-aws"
 region = "us-east-1"
 capabilities = "CAPABILITY_IAM"
 parameter_overrides = "Stage=\"staging\""
@@ -24,7 +26,8 @@ image_repositories = []
 [production.deploy]
 [production.deploy.parameters]
 stack_name = "todo-list-aws-production"
-s3_prefix = "unir-bucket-001/todo-list-aws"
+s3_bucket = "unir-bucket-prod"
+s3_prefix = "todo-list-aws"
 region = "us-east-1"
 capabilities = "CAPABILITY_IAM"
 parameter_overrides = "Stage=\"production\""
