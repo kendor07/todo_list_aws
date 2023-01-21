@@ -17,6 +17,7 @@ pipeline {
                     git checkout -b develop origin/develop
                     git checkout -b main origin/main
                     git merge develop
+                    ssh -T git@github.com
                 """, label: "Merging code to main"
                 sshagent(['aws-lab']) {
                     sh "git push origin main"
