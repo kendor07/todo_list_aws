@@ -1,14 +1,6 @@
 pipeline {
     agent any
     stages {
-        stage('test_connection'){
-            steps{
-                
-                echo 'Starting production job'
-                build job: 'PIPELINE-FULL-PRODUCTION', parameters: [
-                      string(name:'ENVIRONMENT', value: "production")]
-            }
-        }
         stage('Staging'){
             steps{
                 echo 'Starting staging job'
