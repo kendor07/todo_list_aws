@@ -8,5 +8,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Versión inicial de código.
 - Mejorada la descripcion de los ficheros del proyecto bajo README.md
-- 
+- Añadido logfile para local (no parece fácil hacerlo com sam log)
 

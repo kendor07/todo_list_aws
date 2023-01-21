@@ -29,16 +29,19 @@ A continuación se describe la estructura del proyecto:
     - delete.py controlador para borrar un registro
     - get.py controlador para devolver un registro por id
     - list.py controlador para devolver varios registros
-    - 
+    
 - **test** - Tests unitarios y de integración. 
     - integration/todoApiTest.py test de integracion
     - unit/TestToDo.py [FIRST IS CASE WHY?] test unitarios
-    - 
+     
 - **samconfig.toml** - Configuración de los stacks de Staging y Producción
+    *Este fichero configura las variables de entorno [default,staging,production] 
 
 - **template.yaml** - Template que define los recursos AWS de la aplicación
+    *Este fichero extension de cloudformation (SAM) define las funciones lambda y como se despliegan
 
-- **localEnvironment.json** - Permite el despliegue en local de la aplicación sobreescribiendo el endpoint de dynamodb para que apunte contra el docker de dynamo
+- **localEnvironment.json** - Permite el despliegue en local de la aplicación sobreescribiendo el endpoint de dynamodb 
+        para que apunte contra el docker de dynamo
 
 ## Despliegue manual de la aplicación SAM en AWS
 
@@ -64,6 +67,7 @@ El despliegue de la aplicación empaqueta, publicará en un bucket s3 el artefac
 
 * **Stack Name**: El nombre del stack que desplegará en CloudFormation. Debe ser único
 * **AWS Region**: La región en la que se desea publicar la Aplicación.
+* **Parameter Stage**: use default.
 * **Confirm changes before deploy**: Si se indica "yes" se solicitará confirmación antes del despliegue si se encuentran cambios 
 * **Allow SAM CLI IAM role creation**: Permite la creación de roles IAM
 * **Save arguments to samconfig.toml**: Si se selecciona "yes" las respuestas se almacenarán en el fichero de configuración samconfig.toml, de esta forma el el futuro se podrá ejecutar con `sam deploy` y se leerá la configuración del fichero.
@@ -97,6 +101,8 @@ docker network create sam
 
 ## Levantar el contenedor de dynamodb en la red de sam con el nombre de dynamodb
 docker run -p 8000:8000 --network sam --name dynamodb -d amazon/dynamodb-local
+## si el contenedor ya existe
+docker restart f7fc313d1297
 
 ## Crear la tabla en local, para poder trabajar localmemte
 aws dynamodb create-table --table-name local-TodosDynamoDbTable --attribute-definitions AttributeName=id,AttributeType=S --key-schema AttributeName=id,KeyType=HASH --provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1 --endpoint-url http://localhost:8000 --region us-east-1
@@ -104,8 +110,8 @@ aws dynamodb create-table --table-name local-TodosDynamoDbTable --attribute-defi
 ## Empaquetar sam
 sam build # también se puede usar sam build --use-container si se dan problemas con las librerías de python
 
-## Levantar la api en local, en el puerto 8080, dentro de la red de docker sam
-sam local start-api --port 8081 --env-vars localEnvironment.json --docker-network sam
+## Levantar la api en local, en el puerto 8081, dentro de la red de docker sam
+sam local start-api --port 8081 --env-vars localEnvironment.json --docker-network sam -l local.log
 ```
 
 ## Consultar logs de las funciones lambda
