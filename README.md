@@ -165,6 +165,8 @@ Para la implementación del CI/CD de la aplicación se utilizan los siguientes P
 Para borrar la apliación y eliminar los stacks creados ejecutar los siguientes comandos:
 
 ```bash
+## https://stackoverflow.com/questions/47034903/an-error-occurred-invalidclienttokenid-when-calling-the-assumerole-operation
+
 aws cloudformation delete-stack --stack-name todo-list-aws-staging
 aws cloudformation delete-stack --stack-name todo-list-aws-production
 ```
