@@ -19,7 +19,7 @@ pipeline {
                     git merge develop
                 """, label: "Merging code to main"
                 sshagent(['aws-lab']) {
-                    sh "git push origin master"
+                    sh "git push origin main"
                 }
 
             }
