@@ -21,7 +21,7 @@ pipeline {
                     whoami
                     ssh -vT git@github.com
                 """, label: "Merging code to master"
-                sshagent(['aws-lab-ec2-jenkins']) {
+                sshagent(['aws-lab-ec2-git']) {
                     sh "git push origin main"
                 }
 
