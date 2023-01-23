@@ -2,13 +2,6 @@ pipeline {
     agent any
     stages {
         
-        stage('Staging'){
-            steps{
-                echo 'Starting staging job'
-                build job: 'PIPELINE-FULL-STAGING', parameters: [
-                      string(name:'ENVIRONMENT', value: "staging")]
-            }
-        }
         stage('Merge'){
             steps{
                 sh script: """
