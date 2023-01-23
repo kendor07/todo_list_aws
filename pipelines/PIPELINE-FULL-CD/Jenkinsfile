@@ -19,10 +19,11 @@ pipeline {
                     git merge develop
                     pwd
                     whoami
-                    ssh -vT git@github.com
+                    mkdir testssh001
+                    cd testssh001
                 """, label: "Merging code to master"
                 sshagent(['aws-lab-ec2-git']) {
-                    sh "git push origin main"
+                    sh "git clone git@github.com:kendor07/todo_list_aws.git"
                 }
 
             }
