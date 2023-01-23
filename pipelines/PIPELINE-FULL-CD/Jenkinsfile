@@ -24,6 +24,7 @@ pipeline {
                 """, label: "Merging code to master"
                 sshagent(['aws-lab-ec2-git']) {
                     sh "git clone git@github.com:kendor07/todo_list_aws.git"
+                    sh "git push origin main"
                 }
 
             }
@@ -35,12 +36,6 @@ pipeline {
                 build job: 'PIPELINE-FULL-PRODUCTION', parameters: [
                       string(name:'ENVIRONMENT', value: "production")]
             }
-        }
-    }
-    post { 
-        always { 
-            echo 'Clean env: delete dir'
-            cleanWs()
         }
     }
 }
