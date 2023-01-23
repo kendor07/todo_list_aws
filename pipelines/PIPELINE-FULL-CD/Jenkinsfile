@@ -24,7 +24,7 @@ pipeline {
                     cd testssh001
                 """, label: "Merging code to master"
                 sshagent(['aws-lab-ec2-git']) {
-                    sh "git clone git@github.com:kendor07/todo_list_aws.git"
+                    sh "git ls-remote git@github.com:kendor07/todo_list_aws.git"
                     sh "git push origin main"
                 }
 
