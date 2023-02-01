@@ -32,13 +32,13 @@ A continuación se describe la estructura del proyecto:
     
 - **test** - Tests unitarios y de integración. 
     - integration/todoApiTest.py test de integracion
-    - unit/TestToDo.py [FIRST IS CASE WHY?] test unitarios
+    - unit/TestToDo.py test unitarios
      
 - **samconfig.toml** - Configuración de los stacks de Staging y Producción
     *Este fichero configura las variables de entorno [default,staging,production] 
 
 - **template.yaml** - Template que define los recursos AWS de la aplicación
-    *Este fichero extension de cloudformation (SAM) define las funciones lambda y como se despliegan
+    *Este fichero extension de cloudformation (SAM) define las funciones lambda y dynamodb y como se despliegan
 
 - **localEnvironment.json** - Permite el despliegue en local de la aplicación sobreescribiendo el endpoint de dynamodb 
         para que apunte contra el docker de dynamo
@@ -102,7 +102,7 @@ docker network create sam
 ## Levantar el contenedor de dynamodb en la red de sam con el nombre de dynamodb
 docker run -p 8000:8000 --network sam --name dynamodb -d amazon/dynamodb-local
 ## si el contenedor ya existe
-docker restart f7fc313d1297
+docker restart [f7fc313d1297]
 
 ## Crear la tabla en local, para poder trabajar localmemte
 aws dynamodb create-table --table-name local-TodosDynamoDbTable --attribute-definitions AttributeName=id,AttributeType=S --key-schema AttributeName=id,KeyType=HASH --provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1 --endpoint-url http://localhost:8000 --region us-east-1
