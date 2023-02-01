@@ -15,7 +15,8 @@ def get_table(dynamodb=None):
             print('URL dynamoDB:'+URL)
             boto3.client = functools.partial(boto3.client, endpoint_url=URL, region_name=REGION_NAME)
             boto3.resource = functools.partial(boto3.resource,
-                                               endpoint_url=URL)
+                                               endpoint_url=URL,
+                                               region_name=REGION_NAME)
         dynamodb = boto3.resource("dynamodb")
     # fetch todo from the database
     table = dynamodb.Table(os.environ['DYNAMODB_TABLE'])
