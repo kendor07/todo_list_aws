@@ -7,7 +7,7 @@ import boto3
 def translate(event, context):
     # create a response
     item = todoList.get_item(event['pathParameters']['id'])
-    lang = todoList.get_item(event['pathParameters']['id']['lang'])
+    lang = event['pathParameters']['id']['lang']
     if item:
         translate = boto3.client(service_name='translate',
                                  region_name='us-east-1',
