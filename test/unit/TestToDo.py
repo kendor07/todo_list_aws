@@ -214,6 +214,9 @@ class TestDatabaseFunctions(unittest.TestCase):
     def test_translate_todo(self):
         print ('---------------------')
         print ('Start: test_translate_todo')
+        # Mock for translate needed here or the test will always fail
+        # https://github.com/getmoto/moto/tree/master/docs/docs/services
+        # translate does not seem to be supported yet
         from src.todoList import translate_items
         # Testing file functions
         self.assertTrue(translate_items("Hello","es") == "Hola")
