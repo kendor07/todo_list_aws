@@ -106,7 +106,7 @@ Resources:
       ProvisionedThroughput: 
         ReadCapacityUnits: 1
         WriteCapacityUnits: 1
-  GetTrasnlatedFunction:
+  GetTranslateFunction:
       Type: AWS::Serverless::Function 
       Properties:
         CodeUri: src/
