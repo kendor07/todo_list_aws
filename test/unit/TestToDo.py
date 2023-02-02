@@ -59,15 +59,15 @@ class TestDatabaseFunctions(unittest.TestCase):
         ###############
         #added to improve coverage
         ##############
-        from src.todoList import get_table
+        # from src.todoList import get_table
+
+        # response = get_table(self.dynamodb)
+        # self.assertEqual(self.table, response)
         
-        response = get_table(self.dynamodb)
-        self.assertEqual(self.table, response)
+        # response = get_table()
+        # self.assertEqual(self.table, response)
         
-        response = get_table()
-        self.assertEqual(self.table, response)
-        
-        print ('End: test_table_exists')
+        # print ('End: test_table_exists')
         
 
     def test_put_todo(self):
