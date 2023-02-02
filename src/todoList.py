@@ -53,8 +53,8 @@ def translate_items(text, lang):
                                  region_name='us-east-1',
                                  use_ssl=True)
         response = translate.translate_text(Text=text,
-                                          SourceLanguageCode="en",
-                                          TargetLanguageCode=lang)
+                                            SourceLanguageCode="en",
+                                            TargetLanguageCode=lang)
     except ClientError as e:
         print(e.response['Error']['Message'])
     else:
