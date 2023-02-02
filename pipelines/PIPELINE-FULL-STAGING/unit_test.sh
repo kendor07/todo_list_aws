@@ -6,7 +6,7 @@ export PYTHONPATH="${PYTHONPATH}:$(pwd)"
 echo "PYTHONPATH: $PYTHONPATH"
 export DYNAMODB_TABLE=todoUnitTestsTable
 export ENDPOINT_OVERRIDE="http://localhost:8000"
-export REGION_NAME=us-east-1
+#export REGION_NAME=us-east-1
 python test/unit/TestToDo.py
 pip show coverage
 coverage run --include=src/todoList.py test/unit/TestToDo.py
