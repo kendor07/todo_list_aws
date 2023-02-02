@@ -238,7 +238,7 @@ class TestApi(unittest.TestCase):
             json_response['ResponseMetadata']['HTTPStatusCode'], 200, "Error en la petición API a {url}"
         )
         self.assertEqual(
-            response.TranslatedText, "Ejemplo de texto de integración: GET", "Error en la petición API a {url}"
+            response['TranslatedText'], "Ejemplo de texto de integración: GET", "Error en la petición API a {url}"
         )
         #Delete TODO to restore state
         response = requests.delete(url)
