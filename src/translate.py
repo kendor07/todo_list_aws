@@ -1,7 +1,6 @@
 import json
 import decimalencoder
 import todoList
-import boto3
 
 
 def translate(event, context):
