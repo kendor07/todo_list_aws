@@ -15,12 +15,10 @@ def get_table(dynamodb=None):
             print('URL dynamoDB:'+URL)
             print('dynamoDB REGION NAME:'+REGION_NAME)
             boto3.client = functools.partial(boto3.client,
-                                             endpoint_url=URL,
-                                             region_name=REGION_NAME)
-            boto3.resource = functools.partial(boto3.resource,
-                                               endpoint_url=URL)
-        dynamodb = boto3.resource("dynamodb",
-                                  region_name=REGION_NAME)
+                                             endpoint_url=URL)
+            boto3.resource = functools.partial(boto3.resource)
+        dynamodb = boto3.resource("dynamodb")
+                                  #region_name=REGION_NAME)
     # fetch todo from the database
     table = dynamodb.Table(os.environ['DYNAMODB_TABLE'])
     return table
