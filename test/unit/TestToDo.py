@@ -60,7 +60,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         #added to improve coverage
         ##############
         from src.todoList import get_table
-        
+
         response = get_table(self.dynamodb)
         self.assertEqual(self.table, response)
         
