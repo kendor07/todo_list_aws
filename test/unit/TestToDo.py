@@ -210,6 +210,15 @@ class TestDatabaseFunctions(unittest.TestCase):
         # Testing file functions
         self.assertRaises(TypeError, delete_item("", self.dynamodb))
         print ('End: test_delete_todo_error')
+    
+    def test_translate_todo(self):
+        print ('---------------------')
+        print ('Start: test_translate_todo')
+        from src.todoList import translate_items
+        # Testing file functions
+        self.assertTrue(translate_items("Hello","es") == "Hola")
+        print ('End: test_translate_todo')
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -47,7 +47,7 @@ def get_items(dynamodb=None):
     return result['Items']
 
 
-def translate_items(text, lang, dynamodb=None):
+def translate_items(text, lang):
     translate = boto3.client(service_name='translate',
                              region_name='us-east-1',
                              use_ssl=True)
