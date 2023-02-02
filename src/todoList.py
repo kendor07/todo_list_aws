@@ -47,6 +47,16 @@ def get_items(dynamodb=None):
     return result['Items']
 
 
+def translate_items(text, lang, dynamodb=None):
+    translate = boto3.client(service_name='translate',
+                             region_name='us-east-1',
+                             use_ssl=True)
+    result = translate.translate_text(Text=item["text"],
+                                      SourceLanguageCode="en",
+                                      TargetLanguageCode=lang)
+    return result
+
+
 def put_item(text, dynamodb=None):
     table = get_table(dynamodb)
     timestamp = str(time.time())

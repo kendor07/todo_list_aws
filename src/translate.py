@@ -6,20 +6,10 @@ import boto3
 
 def translate(event, context):
     # create a response
-    print(event)
     item = todoList.get_item(event['pathParameters']['id'])
-    print("1")
-    print(item)
     lang = event['pathParameters']['lang']
-    print("2")
-    print(lang)
-    if item:
-        translate = boto3.client(service_name='translate',
-                                 region_name='us-east-1',
-                                 use_ssl=True)
-        result = translate.translate_text(Text=item["text"],
-                                          SourceLanguageCode="en",
-                                          TargetLanguageCode=lang)
+    if item and lang:
+        result = todoList.translate_items(item["text"], lang)
         response = {
             "statusCode": 200,
             "body": json.dumps(result,
