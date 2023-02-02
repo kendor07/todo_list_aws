@@ -12,10 +12,13 @@ def get_table(dynamodb=None):
         URL = os.environ['ENDPOINT_OVERRIDE']
         if URL:
             print('URL dynamoDB:'+URL)
-            boto3.client = functools.partial(boto3.client, endpoint_url=URL)
-            boto3.resource = functools.partial(boto3.resource,
-                                               endpoint_url=URL)
-        dynamodb = boto3.resource("dynamodb")
+            boto3.client = functools.partial(boto3.client,
+                                             endpoint_url=URL)
+            boto3.resource = functools.partial(boto3.resource)
+        dynamodb = boto3.resource("dynamodb",
+                                  region_name='us-east-1')
+
+    # region_name=REGION_NAME)
     # fetch todo from the database
     table = dynamodb.Table(os.environ['DYNAMODB_TABLE'])
     return table
@@ -43,6 +46,20 @@ def get_items(dynamodb=None):
     # fetch todo from the database
     result = table.scan()
     return result['Items']
+
+
+def translate_items(text, lang):
+    try:
+        translate = boto3.client(service_name='translate',
+                                 region_name='us-east-1',
+                                 use_ssl=True)
+        response = translate.translate_text(Text=text,
+                                            SourceLanguageCode="en",
+                                            TargetLanguageCode=lang)
+    except ClientError as e:
+        print(e.response['Error']['Message'])
+    else:
+        return response
 
 
 def put_item(text, dynamodb=None):

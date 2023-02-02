@@ -55,6 +55,18 @@ class TestDatabaseFunctions(unittest.TestCase):
         # check if the table name is 'ToDo'
         self.assertIn(tableName, self.table.name)
         #self.assertIn('todoTable', self.table_local.name)
+        
+        ###############
+        #added to improve coverage
+        ##############
+        from src.todoList import get_table
+
+        response = get_table(self.dynamodb)
+        self.assertEqual(self.table, response)
+        
+        response = get_table()
+        self.assertEqual(self.table, response)
+        
         print ('End: test_table_exists')
         
 
@@ -198,6 +210,18 @@ class TestDatabaseFunctions(unittest.TestCase):
         # Testing file functions
         self.assertRaises(TypeError, delete_item("", self.dynamodb))
         print ('End: test_delete_todo_error')
+    
+    def test_translate_todo(self):
+        print ('---------------------')
+        print ('Start: test_translate_todo')
+        # Mock for translate needed here or the test will always fail
+        # https://github.com/getmoto/moto/tree/master/docs/docs/services
+        # translate does not seem to be supported yet
+        from src.todoList import translate_items
+        # Testing file functions
+        self.assertTrue(translate_items("Hello","es") == "Hola")
+        print ('End: test_translate_todo')
+
 
 if __name__ == '__main__':
     unittest.main()
