@@ -117,7 +117,7 @@ Resources:
           Create:
             Type: Api
             Properties:
-              Path: /todos/{id}/<lang>
+              Path: /todos/{id}/{lang}
               Method: get
     
 
