@@ -216,8 +216,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         print ('Start: test_translate_todo')
         from src.todoList import translate_items
         # Testing file functions
-        print(translate_items("Hello","es"))
-        # self.assertTrue(translate_items("Hello","es") == "Hola")
+        self.assertTrue(translate_items("Hello","es") == "Hola")
         print ('End: test_translate_todo')
 
 

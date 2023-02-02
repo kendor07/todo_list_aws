@@ -48,13 +48,17 @@ def get_items(dynamodb=None):
 
 
 def translate_items(text, lang):
-    translate = boto3.client(service_name='translate',
-                             region_name='us-east-1',
-                             use_ssl=True)
-    result = translate.translate_text(Text=text,
-                                      SourceLanguageCode="en",
-                                      TargetLanguageCode=lang)
-    return result
+    try:
+        translate = boto3.client(service_name='translate',
+                                 region_name='us-east-1',
+                                 use_ssl=True)
+        response = translate.translate_text(Text=text,
+                                          SourceLanguageCode="en",
+                                          TargetLanguageCode=lang)
+    except ClientError as e:
+        print(e.response['Error']['Message'])
+    else:
+        return response
 
 
 def put_item(text, dynamodb=None):
